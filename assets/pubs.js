@@ -1,0 +1,215 @@
+const CROSSREF_BASE = "https://api.crossref.org/works/";
+
+function escapeHtml(str){
+  return (str || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+function first(arr){ return (arr && arr.length) ? arr[0] : ""; }
+function yearFromMessage(msg){
+  const issued = msg && (msg["published-print"] || msg["published-online"] || msg["issued"]);
+  const parts = issued && issued["date-parts"] && issued["date-parts"][0];
+  return parts && parts[0] ? parts[0] : "";
+}
+function authorsAPA(msg){
+  const authors = msg && msg.author ? msg.author : [];
+  const fmt = authors.map(a => {
+    const fam = a.family || "";
+    const given = a.given || "";
+    const initials = given.split(/\s+/).filter(Boolean).map(x => x[0].toUpperCase()+".").join(" ");
+    return fam ? `${fam}, ${initials}`.trim() : initials;
+  });
+  if(fmt.length <= 1) return fmt.join("");
+  if(fmt.length === 2) return `${fmt[0]} & ${fmt[1]}`;
+  return `${fmt.slice(0,-1).join(", ")}, & ${fmt[fmt.length-1]}`;
+}
+function apaCitation(msg){
+  const y = yearFromMessage(msg);
+  const title = first(msg.title) || "";
+  const journal = first(msg["container-title"]) || "";
+  const volume = msg.volume || "";
+  const issue = msg.issue || "";
+  const pages = msg.page || "";
+  const doi = msg.DOI ? `https://doi.org/${msg.DOI}` : (msg.URL || "");
+  const a = authorsAPA(msg);
+  const volIssue = volume ? (issue ? `${volume}(${issue})` : volume) : "";
+  const parts = [
+    a ? `${a}.` : "",
+    y ? `(${y}).` : "",
+    title ? `${title}.` : "",
+    journal ? `${journal}${volIssue ? ", " + volIssue : ""}${pages ? ", " + pages : ""}.` : "",
+    doi ? doi : ""
+  ].filter(Boolean);
+  return parts.join(" ").replace(/\s+/g," ").trim();
+}
+function bibtexKey(msg){
+  const auth = msg && msg.author && msg.author[0] ? (msg.author[0].family || "key") : "key";
+  const y = yearFromMessage(msg) || "yyyy";
+  return (auth + y).toLowerCase().replace(/[^a-z0-9]+/g,"");
+}
+function bibtexEntry(msg){
+  const key = bibtexKey(msg);
+  const title = first(msg.title);
+  const journal = first(msg["container-title"]);
+  const year = yearFromMessage(msg);
+  const volume = msg.volume || "";
+  const number = msg.issue || "";
+  const pages = msg.page || "";
+  const doi = msg.DOI || "";
+  const url = msg.URL || (doi ? `https://doi.org/${doi}` : "");
+  const authors = (msg.author || []).map(a => {
+    const given = a.given || "";
+    const family = a.family || "";
+    return [family, given].filter(Boolean).join(", ");
+  }).join(" and ");
+  const fields = [
+    ["title", title],
+    ["author", authors],
+    ["journal", journal],
+    ["year", year],
+    ["volume", volume],
+    ["number", number],
+    ["pages", pages],
+    ["doi", doi],
+    ["url", url],
+  ].filter(([k,v]) => v);
+  const body = fields.map(([k,v]) => `  ${k} = {${v}}`).join(",\n");
+  return `@article{${key},\n${body}\n}`;
+}
+function showToast(text){
+  let el = document.getElementById("toast");
+  if(!el){
+    el = document.createElement("div");
+    el.id = "toast";
+    el.className = "toast";
+    document.body.appendChild(el);
+  }
+  el.textContent = text;
+  el.classList.add("show");
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(()=> el.classList.remove("show"), 1200);
+}
+async function copyText(text){
+  try{
+    await navigator.clipboard.writeText(text);
+    showToast("Copied");
+  }catch(e){
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    ta.remove();
+    showToast("Copied");
+  }
+}
+function journalLogoSvg(key){
+  if(key === "frontiers"){
+    return `<svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 18V6h9v2H8v3h6v2H8v5H6z" fill="currentColor"/>
+      <path d="M16 18V6h2v12h-2z" fill="currentColor" opacity=".65"/>
+    </svg>`;
+  }
+  if(key === "nature"){
+    return `<svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 18V6h2l6 8V6h2v12h-2l-6-8v8H6z" fill="currentColor"/>
+      <path d="M18 6v12h-2V6h2z" fill="currentColor" opacity=".65"/>
+    </svg>`;
+  }
+  return `<svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M6 18V6h12v12H6z" fill="currentColor" opacity=".25"/>
+    <path d="M8 16V8h8v8H8z" fill="currentColor" opacity=".45"/>
+  </svg>`;
+}
+function renderCard(pub, msg, viewsMap){
+  const title = first(msg.title) || pub.doi;
+  const journal = first(msg["container-title"]) || "";
+  const y = yearFromMessage(msg) || "";
+  const doiUrl = pub.doi ? `https://doi.org/${pub.doi}` : (msg.URL || "");
+  const views = (viewsMap && viewsMap[pub.doi] && typeof viewsMap[pub.doi].views === "number") ? viewsMap[pub.doi].views : null;
+  const apa = apaCitation(msg);
+  const bib = bibtexEntry(msg);
+  const abstract = pub.abstract_summary || "";
+  return `
+  <div class="pub reveal" data-doi="${escapeHtml(pub.doi)}">
+    <div class="pub-head">
+      <div class="journal-logo" title="${escapeHtml(journal)}">${journalLogoSvg(pub.journal_key)}</div>
+      <div class="pub-body">
+        <div class="pub-title">${escapeHtml(title)}</div>
+        <div class="pub-meta">${escapeHtml(authorsAPA(msg))}${y ? " ("+escapeHtml(String(y))+")" : ""}${journal ? " — " + escapeHtml(journal) : ""}</div>
+        <div class="badge-row">
+          <span class="badge-strong"><span class="dot"></span><span class="mono">DOI</span> ${escapeHtml(pub.doi)}</span>
+          ${views === null ? "" : `<span class="badge-strong"><span class="dot"></span>Views ${views.toLocaleString()}</span>`}
+        </div>
+        <div class="pub-links">
+          ${doiUrl ? `<a href="${escapeHtml(doiUrl)}">DOI</a>` : ""}
+          ${pub.publisher_url ? `<a href="${escapeHtml(pub.publisher_url)}">Publisher page</a>` : ""}
+          <span class="small" data-metrics-key="${escapeHtml(pub.doi)}"></span>
+        </div>
+        <details class="abstract">
+          <summary>Abstract</summary>
+          <div class="abstract-text">${escapeHtml(abstract)}</div>
+        </details>
+        <div class="btn-row">
+          <button class="btn" data-copy="apa">Copy APA</button>
+          <button class="btn" data-copy="bibtex">Copy BibTeX</button>
+          <button class="btn secondary" data-copy="doi">Copy DOI</button>
+        </div>
+        <template class="apa-tpl">${escapeHtml(apa)}</template>
+        <template class="bib-tpl">${escapeHtml(bib)}</template>
+      </div>
+    </div>
+  </div>`;
+}
+async function fetchCrossref(doi){
+  const url = CROSSREF_BASE + encodeURIComponent(doi);
+  const r = await fetch(url, { cache: "no-store" });
+  if(!r.ok) throw new Error("Crossref failed");
+  const j = await r.json();
+  return j && j.message ? j.message : null;
+}
+async function loadJson(path){
+  const r = await fetch(path, { cache: "no-store" });
+  if(!r.ok) throw new Error("missing " + path);
+  return await r.json();
+}
+function wireCopyButtons(container){
+  container.addEventListener("click", (ev) => {
+    const btn = ev.target.closest("button[data-copy]");
+    if(!btn) return;
+    const card = btn.closest(".pub");
+    if(!card) return;
+    const mode = btn.getAttribute("data-copy");
+    const doi = card.getAttribute("data-doi") || "";
+    const apa = card.querySelector(".apa-tpl")?.content?.textContent || "";
+    const bib = card.querySelector(".bib-tpl")?.content?.textContent || "";
+    if(mode === "apa") copyText(apa);
+    else if(mode === "bibtex") copyText(bib);
+    else if(mode === "doi") copyText(doi);
+  });
+}
+async function main(){
+  const container = document.getElementById("pubs");
+  if(!container) return;
+
+  let pubs = await loadJson("assets/pubs.json");
+  const items = pubs.items || [];
+
+  let viewsMap = {};
+  try{ viewsMap = await loadJson("assets/frontiers_metrics.json"); }catch(e){}
+
+  const cards = [];
+  for(const pub of items){
+    let msg = pub.crossref_message || null;
+    try{ msg = await fetchCrossref(pub.doi); }catch(e){
+      msg = msg || { title:[pub.doi], DOI: pub.doi, "container-title":[pub.journal_key || ""] };
+    }
+    cards.push(renderCard(pub, msg, viewsMap));
+  }
+  container.innerHTML = cards.join("\n");
+  wireCopyButtons(container);
+}
+document.addEventListener("DOMContentLoaded", main);
