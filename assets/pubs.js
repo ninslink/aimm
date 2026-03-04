@@ -79,6 +79,7 @@ function bibtexEntry(msg){
   const body = fields.map(([k,v]) => `  ${k} = {${v}}`).join(",\n");
   return `@article{${key},\n${body}\n}`;
 }
+
 function showToast(text){
   let el = document.getElementById("toast");
   if(!el){
@@ -106,6 +107,7 @@ async function copyText(text){
     showToast("Copied");
   }
 }
+
 function journalLogoSvg(key){
   if(key === "frontiers"){
     return `<svg viewBox="0 0 24 24" aria-hidden="true">
@@ -124,15 +126,17 @@ function journalLogoSvg(key){
     <path d="M8 16V8h8v8H8z" fill="currentColor" opacity=".45"/>
   </svg>`;
 }
-function renderCard(pub, msg, viewsMap){
+
+function renderCard(pub, msg){
   const title = first(msg.title) || pub.doi;
   const journal = first(msg["container-title"]) || "";
   const y = yearFromMessage(msg) || "";
   const doiUrl = pub.doi ? `https://doi.org/${pub.doi}` : (msg.URL || "");
-  const views = (viewsMap && viewsMap[pub.doi] && typeof viewsMap[pub.doi].views === "number") ? viewsMap[pub.doi].views : null;
+
   const apa = apaCitation(msg);
   const bib = bibtexEntry(msg);
   const abstract = pub.abstract_summary || "";
+
   return `
   <div class="pub reveal" data-doi="${escapeHtml(pub.doi)}">
     <div class="pub-head">
@@ -140,29 +144,39 @@ function renderCard(pub, msg, viewsMap){
       <div class="pub-body">
         <div class="pub-title">${escapeHtml(title)}</div>
         <div class="pub-meta">${escapeHtml(authorsAPA(msg))}${y ? " ("+escapeHtml(String(y))+")" : ""}${journal ? " — " + escapeHtml(journal) : ""}</div>
+
         <div class="badge-row">
           <span class="badge-strong"><span class="dot"></span><span class="mono">DOI</span> ${escapeHtml(pub.doi)}</span>
-          ${views === null ? "" : `<span class="badge-strong"><span class="dot"></span>Views ${views.toLocaleString()}</span>`}
+          <span class="badge-strong" data-views-badge="${escapeHtml(pub.doi)}"><span class="dot"></span>Views —</span>
         </div>
+
         <div class="pub-links">
           ${doiUrl ? `<a href="${escapeHtml(doiUrl)}">DOI</a>` : ""}
           ${pub.publisher_url ? `<a href="${escapeHtml(pub.publisher_url)}">Publisher page</a>` : ""}
-          <span class="small" data-metrics-key="${escapeHtml(pub.doi)}"></span>
         </div>
+
         <details class="abstract">
           <summary>Abstract</summary>
           <div class="abstract-text">${escapeHtml(abstract)}</div>
         </details>
+
         <div class="btn-row">
           <button class="btn" data-copy="apa">Copy APA</button>
           <button class="btn" data-copy="bibtex">Copy BibTeX</button>
           <button class="btn secondary" data-copy="doi">Copy DOI</button>
         </div>
+
         <template class="apa-tpl">${escapeHtml(apa)}</template>
         <template class="bib-tpl">${escapeHtml(bib)}</template>
       </div>
     </div>
   </div>`;
+}
+
+async function loadJson(path){
+  const r = await fetch(path, { cache: "no-store" });
+  if(!r.ok) throw new Error("missing " + path);
+  return await r.json();
 }
 async function fetchCrossref(doi){
   const url = CROSSREF_BASE + encodeURIComponent(doi);
@@ -171,26 +185,41 @@ async function fetchCrossref(doi){
   const j = await r.json();
   return j && j.message ? j.message : null;
 }
-async function loadJson(path){
-  const r = await fetch(path, { cache: "no-store" });
-  if(!r.ok) throw new Error("missing " + path);
-  return await r.json();
-}
+
 function wireCopyButtons(container){
   container.addEventListener("click", (ev) => {
     const btn = ev.target.closest("button[data-copy]");
     if(!btn) return;
     const card = btn.closest(".pub");
     if(!card) return;
+
     const mode = btn.getAttribute("data-copy");
     const doi = card.getAttribute("data-doi") || "";
     const apa = card.querySelector(".apa-tpl")?.content?.textContent || "";
     const bib = card.querySelector(".bib-tpl")?.content?.textContent || "";
+
     if(mode === "apa") copyText(apa);
     else if(mode === "bibtex") copyText(bib);
     else if(mode === "doi") copyText(doi);
   });
 }
+
+async function updateViewsBadges(){
+  let metrics = {};
+  try{
+    metrics = await loadJson("assets/frontiers_metrics.json");
+  }catch(e){
+    metrics = {};
+  }
+
+  const badges = document.querySelectorAll("[data-views-badge]");
+  badges.forEach(b => {
+    const doi = b.getAttribute("data-views-badge");
+    const v = metrics && metrics[doi] && typeof metrics[doi].views === "number" ? metrics[doi].views : null;
+    b.innerHTML = `<span class="dot"></span>Views ${v === null ? "—" : Number(v).toLocaleString()}`;
+  });
+}
+
 async function main(){
   const container = document.getElementById("pubs");
   if(!container) return;
@@ -198,18 +227,28 @@ async function main(){
   let pubs = await loadJson("assets/pubs.json");
   const items = pubs.items || [];
 
-  let viewsMap = {};
-  try{ viewsMap = await loadJson("assets/frontiers_metrics.json"); }catch(e){}
-
   const cards = [];
   for(const pub of items){
     let msg = pub.crossref_message || null;
-    try{ msg = await fetchCrossref(pub.doi); }catch(e){
+    try{
+      msg = await fetchCrossref(pub.doi);
+    }catch(e){
       msg = msg || { title:[pub.doi], DOI: pub.doi, "container-title":[pub.journal_key || ""] };
     }
-    cards.push(renderCard(pub, msg, viewsMap));
+    cards.push(renderCard(pub, msg));
   }
+
   container.innerHTML = cards.join("\n");
+
   wireCopyButtons(container);
+
+  // ✅ important: run after cards exist
+  await updateViewsBadges();
+
+  // optional: if you use your scroll reveal, re-init for inserted cards
+  if(typeof window.__aimmRevealInserted === "function"){
+    window.__aimmRevealInserted();
+  }
 }
+
 document.addEventListener("DOMContentLoaded", main);
