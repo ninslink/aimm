@@ -12,12 +12,18 @@
       "journal_key": "frontiers",
       "abstract_summary": "The study develops an outcome-based measure of resilience to acute malnutrition using longitudinal data from Kenya (2016–2020). It identifies distinct trajectories across wards and links them to differential household risk, underscoring the importance of measuring resilience at fine geographic scales."
     },
-    {
-      "doi": "10.1038/s41599-023-01547-8",
-      "publisher_url": "https://www.nature.com/articles/s41599-023-01547-8",
-      "journal_key": "nature",
-      "abstract_summary": "Using a large household dataset from Kenya, the paper calibrates a computational model and runs counterfactual experiments to study how adaptive capacity affects vulnerability to acute malnutrition, highlighting heterogeneity in crisis responses."
-    }
+{
+  "doi": "10.1038/s41599-023-01547-8",
+  "publisher_url": "https://www.nature.com/articles/s41599-023-01547-8",
+  "journal_key": "nature",
+  "display": {
+    "title": "Household behavior and vulnerability to acute malnutrition in Kenya",
+    "authors": "Bhavnani, R., Schlager, N., Donnay, K., Reul, M., Schenker, L., Stauffer, M., & Patel, T.",
+    "year": "2023",
+    "journal": "Humanities & Social Sciences Communications"
+  },
+  "abstract_summary": "Using a large household dataset from Kenya, the paper calibrates a computational model and runs counterfactual experiments to study how adaptive capacity affects vulnerability to acute malnutrition, highlighting heterogeneity in crisis responses."
+}
   ],
   "updated_utc": ""
 }
