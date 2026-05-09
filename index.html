@@ -2,46 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
   <title>AIMM</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/logos/av-banner@x3.png">
   <link rel="stylesheet" href="assets/styles.css">
   <link rel="stylesheet" href="assets/desktop-refinements.css">
+  <link rel="stylesheet" href="assets/technical-refinements.css">
 </head>
 <body>
 <div class="top-monogram">
-  <a href="index.html"><img src="assets/logos/av-mono_bw@3x.png" alt="AnthroViz monogram"></a>
+  <a href="index.html"><img src="assets/logos/av-mono_bw@3x.png" alt="AnthroViz monogram" loading="eager" decoding="async"></a>
 </div>
 <main class="landing-page landing-system-page compact-landing">
   <section class="landing-composition" aria-label="AnthroViz AI landing page">
     <a class="center-logo-stage" href="about.html" aria-label="About AIMM">
-      <img src="assets/logos/av-banner@3x.png" alt="AnthroViz AI">
+      <img src="assets/logos/av-banner@3x.png" alt="AnthroViz AI" loading="eager" fetchpriority="high" decoding="async">
     </a>
 
     <aside class="landing-news-panel" aria-label="News">
       <div class="rail-title">News</div>
-      <a class="visual-card news-card" href="updates.html#tag-flame"><figure><img src="assets/news/image_01.jpg" alt="TAG Meeting"></figure><span>08.2026</span><strong>TAG Meeting</strong><figcaption><p>Technical Advisory Group meeting at FLAME University to review AIMM and prepare large-scale data collection.</p><em>Read more</em></figcaption></a>
-      <a class="visual-card news-card" href="updates.html#pilot-nashik"><figure><img src="assets/news/image_02.jpg" alt="Pilot Study"></figure><span>04.2026</span><strong>Pilot Study</strong><figcaption><p>First working AIMM smartphone app tested with more than 150 children during the Nashik pilot study.</p><em>Read more</em></figcaption></a>
-      <a class="visual-card news-card" href="updates.html#interview-cai"><figure><img src="assets/news/image_03.jpg" alt="Interview"></figure><span>03.2026</span><strong>Interview</strong><figcaption><p>AIMM researchers discuss smartphone-based AI systems for community nutrition monitoring in low-resource settings.</p><em>Read more</em></figcaption></a>
-      <a class="visual-card news-card" href="updates.html#frontiers-publication"><figure><img src="assets/news/image_09.jpg" alt="Publication"></figure><span>02.2026</span><strong>Publication</strong><figcaption><p>New Frontiers in Public Health paper presents the D2A smartphone workflow for community-led malnutrition screening.</p><em>Read more</em></figcaption></a>
+      <a class="visual-card news-card" href="updates.html#tag-flame"><figure><img src="assets/news/image_01.jpg" alt="TAG Meeting" loading="lazy" decoding="async"></figure><span>08.2026</span><strong>TAG Meeting</strong><figcaption><p>Technical Advisory Group meeting at FLAME University to review AIMM and prepare large-scale data collection.</p><em>Read more</em></figcaption></a>
+      <a class="visual-card news-card" href="updates.html#pilot-nashik"><figure><img src="assets/news/image_02.jpg" alt="Pilot Study" loading="lazy" decoding="async"></figure><span>04.2026</span><strong>Pilot Study</strong><figcaption><p>First working AIMM smartphone app tested with more than 150 children during the Nashik pilot study.</p><em>Read more</em></figcaption></a>
+      <a class="visual-card news-card" href="updates.html#interview-cai"><figure><img src="assets/news/image_03.jpg" alt="Interview" loading="lazy" decoding="async"></figure><span>03.2026</span><strong>Interview</strong><figcaption><p>AIMM researchers discuss smartphone-based AI systems for community nutrition monitoring in low-resource settings.</p><em>Read more</em></figcaption></a>
+      <a class="visual-card news-card" href="updates.html#frontiers-publication"><figure><img src="assets/news/image_09.jpg" alt="Publication" loading="lazy" decoding="async"></figure><span>02.2026</span><strong>Publication</strong><figcaption><p>New Frontiers in Public Health paper presents the D2A smartphone workflow for community-led malnutrition screening.</p><em>Read more</em></figcaption></a>
     </aside>
 
     <section class="landing-sections-panel" aria-label="Sections">
       <div class="rail-title">Sections</div>
       <div class="section-grid compact-section-grid">
-        <a class="visual-card section-card" href="about.html"><figure><img src="assets/logos/av-mono_bw@3x.png" alt="About"></figure><strong>About</strong></a>
-        <a class="visual-card section-card" href="project.html"><figure><img src="assets/news/image_05.jpg" alt="Research"></figure><strong>Research</strong></a>
-        <a class="visual-card section-card" href="publications.html"><figure><img src="assets/news/image_06.jpg" alt="Publications"></figure><strong>Publications</strong></a>
-        <a class="visual-card section-card" href="updates.html"><figure><img src="assets/news/image_07.jpg" alt="News"></figure><strong>News</strong></a>
-        <a class="visual-card section-card" href="dashboard.html"><figure><img src="assets/news/image_08.jpg" alt="Dashboard"></figure><strong>Dashboard</strong></a>
+        <a class="visual-card section-card" href="about.html"><figure><img src="assets/logos/av-mono_bw@3x.png" alt="About" loading="lazy" decoding="async"></figure><strong>About</strong></a>
+        <a class="visual-card section-card" href="project.html"><figure><img src="assets/news/image_05.jpg" alt="Research" loading="lazy" decoding="async"></figure><strong>Research</strong></a>
+        <a class="visual-card section-card" href="publications.html"><figure><img src="assets/news/image_06.jpg" alt="Publications" loading="lazy" decoding="async"></figure><strong>Publications</strong></a>
+        <a class="visual-card section-card" href="updates.html"><figure><img src="assets/news/image_07.jpg" alt="News" loading="lazy" decoding="async"></figure><strong>News</strong></a>
+        <a class="visual-card section-card" href="dashboard.html"><figure><img src="assets/news/image_08.jpg" alt="Dashboard" loading="lazy" decoding="async"></figure><strong>Dashboard</strong></a>
       </div>
     </section>
   </section>
 </main>
 <footer class="site-footer">
-  <div class="footer-partners"><img src="assets/logos/geneva.png" alt="Geneva Graduate Institute"><img src="assets/logos/snsf.png" alt="Swiss National Science Foundation"><img src="assets/logos/bridge.png" alt="BRIDGE Programme"><img src="assets/logos/flame.png" alt="FLAME University"><img class="footer-av" src="assets/logos/av-banner_bw@3x.png" alt="AnthroViz AI"></div>
+  <div class="footer-partners"><img src="assets/logos/geneva.png" alt="Geneva Graduate Institute" loading="lazy" decoding="async"><img src="assets/logos/snsf.png" alt="Swiss National Science Foundation" loading="lazy" decoding="async"><img src="assets/logos/bridge.png" alt="BRIDGE Programme" loading="lazy" decoding="async"><img src="assets/logos/flame.png" alt="FLAME University" loading="lazy" decoding="async"><img class="footer-av" src="assets/logos/av-banner_bw@3x.png" alt="AnthroViz AI" loading="lazy" decoding="async"></div>
   <div class="footer-identity"><div class="footer-note">For inquiries <a href="mailto:aimm@iheid.ch">aimm@iheid.ch</a></div></div>
   <nav class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="project.html">Research</a><a href="publications.html">Publications</a><a href="updates.html">News</a><a href="dashboard.html">Dashboard</a></nav>
 </footer>
