@@ -1,0 +1,189 @@
+/* Technical refinement layer: spacing, hierarchy, responsiveness, hover restraint, image performance */
+:root{
+  --space-2xs:.375rem;
+  --space-xs:.625rem;
+  --space-sm:.875rem;
+  --space-md:1.25rem;
+  --space-lg:2rem;
+  --space-xl:3rem;
+  --space-2xl:4.5rem;
+  --content-max:1440px;
+  --tile-gap:clamp(12px,1.4vw,24px);
+  --type-kicker:clamp(.48rem,.44rem + .12vw,.62rem);
+  --type-label:clamp(.62rem,.58rem + .18vw,.82rem);
+  --type-card:clamp(.72rem,.64rem + .32vw,1rem);
+  --type-body:clamp(.88rem,.82rem + .22vw,1.04rem);
+  --ease-ui:180ms ease;
+}
+
+*{min-width:0}
+html{scroll-behavior:smooth;text-size-adjust:100%;-webkit-text-size-adjust:100%}
+body{font-size:var(--type-body);line-height:1.55}
+img{max-width:100%;height:auto;content-visibility:auto}
+
+/* Cleaner CSS hierarchy and shared rhythm */
+.landing-page{
+  isolation:isolate;
+  padding-inline:clamp(16px,2.4vw,40px);
+}
+.landing-composition{
+  width:min(100%,var(--content-max));
+  margin-inline:auto;
+}
+.rail-title{
+  font-size:var(--type-kicker)!important;
+  line-height:1.1;
+  letter-spacing:clamp(.28em,.42vw,.54em)!important;
+  margin-bottom:var(--space-sm);
+}
+.visual-card,
+.news-card,
+.section-card{
+  contain:layout paint;
+  backface-visibility:hidden;
+}
+.visual-card figure{
+  margin:0;
+  display:block;
+}
+.visual-card img{
+  will-change:auto;
+}
+.news-card strong,
+.section-card strong{
+  font-size:var(--type-card)!important;
+  overflow-wrap:anywhere;
+}
+.news-card figcaption p{
+  font-size:clamp(.62rem,.58rem + .12vw,.72rem)!important;
+}
+
+/* Reduce transform clutter while preserving the raspberry negative hover language */
+.visual-card,
+.visual-card:hover,
+.visual-card img,
+.visual-card:hover img{
+  transition-property:filter,background-color,border-color,color,opacity;
+  transition-duration:var(--ease-ui);
+  transform:none!important;
+}
+.visual-card:hover img{
+  scale:none!important;
+}
+@media (hover:none), (pointer:coarse){
+  .visual-card:hover img,
+  .visual-card:hover,
+  .section-card:hover:nth-child(n){
+    transform:none!important;
+  }
+  .news-card figcaption{
+    opacity:1;
+    pointer-events:auto;
+  }
+}
+
+/* Desktop rhythm: keep the current composition, but normalize gaps and tile sizing */
+@media (min-width:1201px){
+  .landing-page{
+    padding-inline:clamp(24px,2.2vw,42px);
+  }
+  .landing-composition{
+    grid-template-columns:minmax(250px,17vw) minmax(0,1fr)!important;
+    gap:clamp(14px,1.1vw,22px) clamp(64px,6vw,104px)!important;
+  }
+  .center-logo-stage img{
+    width:min(54vw,980px)!important;
+    max-height:clamp(112px,15vh,148px)!important;
+  }
+  .landing-news-panel{
+    gap:var(--space-sm)!important;
+  }
+  .compact-section-grid{
+    gap:clamp(8px,.8vw,14px) var(--tile-gap)!important;
+    padding-bottom:var(--space-xs)!important;
+  }
+  .news-card figure,
+  .section-card figure{
+    aspect-ratio:1/1;
+  }
+  .news-card figcaption{
+    transition:opacity var(--ease-ui)!important;
+  }
+}
+
+/* Tablet: remove desktop-only compression and make both rails readable */
+@media (max-width:1200px){
+  body{overflow-x:hidden!important}
+  .landing-page{
+    min-height:auto;
+    padding-block:clamp(24px,4vw,52px);
+  }
+  .landing-composition{
+    gap:var(--space-xl)!important;
+  }
+  .landing-news-panel{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:var(--tile-gap)!important;
+  }
+  .landing-news-panel .rail-title,
+  .landing-sections-panel .rail-title{
+    grid-column:1/-1;
+  }
+  .compact-section-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:var(--tile-gap)!important;
+  }
+  .news-card figure,
+  .section-card figure{
+    aspect-ratio:1/1!important;
+    height:auto!important;
+  }
+}
+
+/* Mobile: flat, non-carousel, no depth effects */
+@media (max-width:640px){
+  .landing-page{
+    padding:72px clamp(14px,4vw,18px) 28px!important;
+  }
+  .landing-composition{
+    gap:var(--space-lg)!important;
+  }
+  .center-logo-stage{
+    justify-content:center!important;
+    padding-bottom:var(--space-lg)!important;
+  }
+  .landing-news-panel,
+  .compact-section-grid{
+    grid-template-columns:1fr!important;
+    gap:var(--space-sm)!important;
+  }
+  .news-card,
+  .section-card:nth-child(n){
+    min-height:auto!important;
+  }
+  .news-card figure,
+  .section-card figure{
+    height:auto!important;
+    aspect-ratio:1/1!important;
+  }
+  .news-card figcaption p{
+    display:none!important;
+  }
+  .visual-card figure::before,
+  .landing-page::before,
+  .landing-page::after,
+  .landing-sections-panel::before,
+  .landing-sections-panel::after{
+    display:none!important;
+  }
+}
+
+/* Accessibility and performance */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.01ms!important;
+  }
+}
