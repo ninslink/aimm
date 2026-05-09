@@ -1,0 +1,177 @@
+/* Desktop landing refinements: full-viewport tile system, cleaner BW, no footer monogram */
+@media (min-width:1201px){
+  :root{--footer-h:76px;--gutter:34px}
+
+  body{overflow:hidden;background:#fff}
+  .landing-page{
+    height:calc(100vh - var(--footer-h));
+    min-height:0;
+    padding:6px var(--gutter) 0;
+    overflow:hidden;
+  }
+  .landing-page::before{opacity:.018}
+  .landing-page::after{display:none}
+
+  .landing-composition{
+    height:100%;
+    min-height:0;
+    display:grid;
+    grid-template-columns:minmax(260px,18vw) minmax(0,1fr);
+    grid-template-rows:minmax(120px,21vh) minmax(0,1fr);
+    gap:18px 46px;
+    align-items:stretch;
+  }
+
+  .center-logo-stage{
+    grid-column:1/-1;
+    height:100%;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+  }
+  .center-logo-stage img{
+    width:min(50vw,940px);
+    max-height:100%;
+    object-fit:contain;
+    filter:grayscale(100%) contrast(1.08) brightness(.98);
+  }
+
+  .landing-news-panel,
+  .landing-sections-panel{
+    min-height:0;
+    height:100%;
+  }
+  .landing-news-panel{
+    display:grid;
+    grid-template-columns:1fr;
+    grid-template-rows:auto repeat(4,minmax(0,1fr));
+    gap:10px;
+    max-height:none;
+  }
+  .landing-news-panel .rail-title,
+  .landing-sections-panel .rail-title{
+    margin-bottom:0;
+  }
+
+  .visual-card{
+    overflow:visible;
+    background:transparent;
+    border:0;
+    color:var(--ink);
+  }
+  .visual-card::before,
+  .visual-card::after,
+  .section-card strong::before{display:none!important;content:none!important}
+
+  .visual-card figure{
+    width:100%;
+    height:100%;
+    min-height:0;
+    background:#EDEFF0;
+    border:1px solid rgba(17,19,21,.10);
+    overflow:hidden;
+  }
+  .visual-card figure::before{display:none!important}
+  .visual-card figure::after{
+    background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(17,19,21,.20));
+    opacity:.45;
+  }
+  .visual-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:1;
+    filter:grayscale(100%) saturate(0) contrast(.96) brightness(1.06);
+    mix-blend-mode:normal;
+  }
+  .visual-card:hover img{
+    transform:scale(1.012);
+    filter:grayscale(100%) saturate(0) contrast(1.02) brightness(1.02);
+  }
+  .visual-card:hover figure::after{
+    background:linear-gradient(180deg,rgba(179,18,63,.02),rgba(179,18,63,.28));
+    opacity:.7;
+  }
+
+  .news-card{
+    display:grid;
+    grid-template-rows:minmax(0,1fr) auto;
+    gap:6px;
+    background:transparent;
+    min-height:0;
+  }
+  .news-card figure{height:100%;aspect-ratio:auto}
+  .news-card span,
+  .news-card strong{
+    position:static;
+    text-shadow:none;
+    color:var(--ink);
+  }
+  .news-card span{
+    order:2;
+    margin-top:0;
+    font-size:7px;
+    letter-spacing:.22em;
+    color:var(--muted);
+  }
+  .news-card strong{
+    order:3;
+    font-size:9px;
+    letter-spacing:.19em;
+    line-height:1.25;
+    color:var(--ink);
+  }
+  .news-card figcaption{
+    inset:0;
+    background:rgba(179,18,63,.92);
+    padding:14px;
+  }
+  .news-card figcaption p{font-size:9px;line-height:1.45}
+
+  .landing-sections-panel::before,
+  .landing-sections-panel::after{display:none!important}
+  .compact-section-grid{
+    height:100%;
+    min-height:0;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-template-rows:repeat(2,minmax(0,1fr));
+    gap:24px 26px;
+    counter-reset:none;
+  }
+  .section-card,
+  .section-card:nth-child(n),
+  .section-card:hover:nth-child(n){
+    width:100%;
+    grid-column:auto;
+    grid-row:auto;
+    transform:none;
+    display:grid;
+    grid-template-rows:minmax(0,1fr) auto;
+    gap:10px;
+    min-height:0;
+    justify-self:stretch;
+  }
+  .section-card:nth-child(1){grid-column:1;grid-row:1}
+  .section-card:nth-child(2){grid-column:2;grid-row:1}
+  .section-card:nth-child(3){grid-column:3;grid-row:1}
+  .section-card:nth-child(4){grid-column:1 / span 2;grid-row:2}
+  .section-card:nth-child(5){grid-column:3;grid-row:2}
+  .section-card figure{height:100%;aspect-ratio:auto}
+  .section-card strong{
+    position:static;
+    color:var(--ink);
+    text-shadow:none;
+    font-size:10px;
+    letter-spacing:.26em;
+    line-height:1.2;
+    padding:0;
+    z-index:1;
+  }
+
+  .site-footer{
+    height:var(--footer-h);
+    flex-basis:var(--footer-h);
+  }
+  .site-footer::before{display:none!important;content:none!important}
+}
