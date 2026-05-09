@@ -36,13 +36,21 @@
     min-height:0;
     display:grid;
     grid-template-columns:minmax(250px,16vw) minmax(0,1fr);
-    grid-template-rows:minmax(88px,15vh) minmax(0,1fr);
-    gap:8px 74px;
+    grid-template-rows:minmax(110px,18vh) minmax(0,1fr);
+    gap:14px 82px;
     align-items:stretch;
   }
 
   .center-logo-stage{grid-column:1/-1;height:100%;align-items:center;justify-content:center;padding:0}
-  .center-logo-stage img{width:min(42vw,760px);max-height:100%;object-fit:contain;filter:none}
+  .center-logo-stage img{
+    width:min(54vw,980px);
+    max-height:140px;
+    object-fit:contain;
+    display:block;
+    opacity:1!important;
+    visibility:visible!important;
+    filter:none!important;
+  }
 
   .landing-news-panel,.landing-sections-panel{min-height:0;height:100%}
 
@@ -50,14 +58,14 @@
     display:grid;
     grid-template-columns:1fr;
     grid-template-rows:auto repeat(4,minmax(0,1fr));
-    gap:12px;
+    gap:16px;
     max-height:none;
   }
 
   .landing-news-panel .rail-title,.landing-sections-panel .rail-title{
     font-size:11px!important;
     letter-spacing:.54em!important;
-    margin-bottom:0;
+    margin-bottom:2px;
     color:#000!important;
   }
 
@@ -69,18 +77,17 @@
   .visual-card figure::after{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(17,19,21,.08));opacity:.22}
   .visual-card img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(.92) brightness(1.08);transition:filter .12s linear!important;transform:none!important}
 
-  /* Only retained hover effect: raspberry negative image state */
   .visual-card:hover figure{background:#B3123F;border-color:#B3123F;box-shadow:none!important}
   .visual-card:hover img{transform:none!important;filter:grayscale(100%) invert(1) contrast(1.08) brightness(1.02)}
   .visual-card:hover figure::after{background:rgba(179,18,63,.52);opacity:.62}
 
   /* Equal news tiles */
-  .news-card{display:grid;grid-template-rows:minmax(0,1fr) auto auto;gap:7px;background:transparent;min-height:0;transform:none!important}
+  .news-card{display:grid;grid-template-rows:minmax(0,1fr) auto auto;gap:9px;background:transparent;min-height:0;transform:none!important}
   .news-card figure{aspect-ratio:1/1;width:100%;height:auto}
-  .news-card span,.news-card strong{position:static;text-shadow:none;color:#000!important}
-  .news-card span{order:2;font-size:9px;letter-spacing:.34em;color:#000!important}
-  .news-card strong{order:3;font-size:15px;letter-spacing:.36em;line-height:1.12;color:#000!important;font-weight:600}
-  .news-card:hover span,.news-card:hover strong{color:#000!important}
+  .news-card span,.news-card strong{position:static;text-shadow:none;color:#B3123F!important}
+  .news-card span{order:2;font-size:9px;letter-spacing:.34em;color:#B3123F!important;font-weight:600}
+  .news-card strong{order:3;font-size:16px;letter-spacing:.36em;line-height:1.14;color:#B3123F!important;font-weight:700}
+  .news-card:hover span,.news-card:hover strong{color:#B3123F!important}
 
   .news-card figcaption{
     display:flex!important;
@@ -90,12 +97,12 @@
     opacity:0;
     background:rgba(179,18,63,.94);
     color:#fff;
-    padding:16px;
+    padding:18px;
     align-items:flex-end;
     pointer-events:none;
   }
   .news-card:hover figcaption{opacity:1}
-  .news-card figcaption p{font-size:11px;line-height:1.5;margin:0 0 10px;color:#fff}
+  .news-card figcaption p{font-size:11px;line-height:1.55;margin:0 0 12px;color:#fff}
   .news-card figcaption em{display:inline-block;font-style:normal;font-size:8px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,.82);padding-bottom:3px}
 
   .landing-sections-panel{position:relative;display:grid;grid-template-rows:auto minmax(0,1fr)}
@@ -109,15 +116,14 @@
     display:grid;
     grid-template-columns:repeat(3,minmax(0,1fr));
     grid-template-rows:repeat(3,minmax(0,1fr));
-    gap:10px 28px;
+    gap:12px 32px;
     align-items:center;
     justify-items:center;
     padding:0 0 .4vh;
   }
 
-  .section-card,.section-card:nth-child(n),.section-card:hover:nth-child(n){display:grid;grid-template-rows:minmax(0,1fr) auto;gap:10px;min-height:0;justify-self:center}
+  .section-card,.section-card:nth-child(n),.section-card:hover:nth-child(n){display:grid;grid-template-rows:minmax(0,1fr) auto;gap:12px;min-height:0;justify-self:center}
 
-  /* Larger asymmetrical section tiles */
   .section-card:nth-child(1){grid-column:2;grid-row:2;width:min(100%,clamp(230px,21vw,350px));transform:none!important}
   .section-card:nth-child(2){grid-column:2;grid-row:1;width:min(100%,clamp(160px,13vw,220px));transform:translate(-30px,-8px)!important}
   .section-card:nth-child(3){grid-column:1;grid-row:2;width:min(100%,clamp(170px,14vw,235px));transform:translate(10px,-4px)!important}
@@ -128,7 +134,6 @@
   .section-card strong{position:static;text-align:center;color:#000!important;text-shadow:none;font-size:15px;letter-spacing:.42em;line-height:1.1;padding:0;font-weight:600}
   .section-card:hover strong{color:#000!important}
 
-  /* Central About monograph tile: largest, no extra effects except same negative hover */
   .section-card:nth-child(1) figure{display:flex;align-items:center;justify-content:center;background:#F7F8F8;border-color:rgba(17,19,21,.08);box-shadow:none!important}
   .section-card:nth-child(1) figure::after,.section-card:nth-child(1) figure::before{display:none!important}
   .section-card:nth-child(1) img{width:74%;height:74%;object-fit:contain;filter:grayscale(100%) contrast(1.02) brightness(1);transition:filter .12s linear!important;transform:none!important}
