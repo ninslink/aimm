@@ -1,1 +1,57 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>About — AIMM</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css"></head><body><main class="page"><section class="text-block"><div class="rail-title">About</div><h1 class="publication-title">Artificial Intelligence for Monitoring Malnutrition</h1><p>Placeholder content for the AIMM / AnthroViz AI platform. This section will introduce the research initiative, visual anthropometry approach, fieldwork context, AI systems, and institutional collaborations behind the project.</p><p>The final version will present the platform as a hybrid between scientific infrastructure, documentary field research, and computational visual intelligence.</p></section></main><footer class="site-footer"><div class="footer-label">AIMM</div><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="project.html">Research</a><a href="updates.html">News</a><a href="publications.html">Publications</a><a href="dashboard.html">Dashboard</a></div><div class="footer-note">For inquiries: <a href="mailto:aimm@iheid.ch">aimm@iheid.ch</a></div></footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — AIMM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/about.css">
+</head>
+<body>
+<main class="page about-page">
+  <section class="about-hero" aria-labelledby="about-title">
+    <a class="back-link" href="index.html">← Home</a>
+    <div class="rail-title">About AIMM</div>
+    <h1 id="about-title" class="about-page-title">A visual AI pipeline for scalable child nutrition monitoring.</h1>
+    <p class="about-page-intro">AIMM uses smartphone imaging, pose-guided feature extraction, and AI-assisted inference to support visual anthropometry in field settings.</p>
+  </section>
+
+  <section class="about-system-section" aria-label="Interactive AIMM pipeline">
+    <div class="about-system-copy">
+      <p>AI-assisted visual anthropometry for child nutrition monitoring using smartphone imaging.</p>
+      <span>Computational · scientific · humanitarian · field-oriented</span>
+    </div>
+
+    <div class="about-system">
+      <div class="about-system-card card-data"><span>01</span><h2>Data collection</h2><p>Front and side smartphone images are captured in field conditions.</p></div>
+      <div class="about-system-card card-pose"><span>02</span><h2>Pose & body detection</h2><p>Landmarks, contours, and segmentation masks locate body structure.</p></div>
+      <div class="about-system-card card-feature"><span>03</span><h2>Feature extraction</h2><p>Anthropometric ratios and structured visual features are computed.</p></div>
+      <div class="about-system-card card-model"><span>04</span><h2>AI model</h2><p>Inference models translate visual features into nutritional signals.</p></div>
+      <div class="about-system-card card-output"><span>05</span><h2>Outputs</h2><p>Risk indicators support monitoring of wasting, stunting, and underweight.</p></div>
+
+      <svg class="about-system-svg" viewBox="0 0 1160 650" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AIMM visual anthropometry pipeline diagram">
+        <defs><linearGradient id="aboutMagenta" x1="110" y1="0" x2="1050" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#B3123F" stop-opacity=".08"/><stop offset=".5" stop-color="#B3123F" stop-opacity=".85"/><stop offset="1" stop-color="#B3123F" stop-opacity=".08"/></linearGradient></defs>
+        <g class="about-grid"><path d="M90 130H1070M90 230H1070M90 330H1070M90 430H1070M180 70V570M340 70V570M520 70V570M700 70V570M880 70V570M1040 70V570"/></g>
+        <path class="about-flow" d="M115 330 C245 150 335 505 470 330 S680 150 805 330 S990 505 1050 330"/>
+        <g class="about-stage about-stage-data" tabindex="0"><rect x="88" y="230" width="108" height="190" rx="22"/><circle cx="142" cy="394" r="5"/><path d="M124 267 C136 250 157 250 169 267"/><path d="M146 278V340"/><path d="M146 302L112 326"/><path d="M146 302L178 326"/><path d="M146 340L119 378"/><path d="M146 340L172 378"/><line class="about-scan" x1="102" y1="292" x2="182" y2="292"/><circle class="about-pulse" cx="146" cy="302" r="24"/></g>
+        <g class="about-stage about-stage-pose" tabindex="0"><path class="about-mask" d="M316 230 C267 268 273 383 317 429 C364 475 421 411 407 316 C399 252 359 214 316 230Z"/><circle cx="350" cy="222" r="15"/><path d="M350 237V328M350 269L299 301M350 269L401 301M350 328L313 407M350 328L386 407"/><circle cx="350" cy="222" r="5"/><circle cx="350" cy="269" r="5"/><circle cx="299" cy="301" r="5"/><circle cx="401" cy="301" r="5"/><circle cx="313" cy="407" r="5"/><circle cx="386" cy="407" r="5"/></g>
+        <g class="about-stage about-stage-features" tabindex="0"><rect x="505" y="224" width="160" height="50" rx="8"/><rect x="505" y="300" width="160" height="50" rx="8"/><rect x="505" y="376" width="160" height="50" rx="8"/><text x="526" y="255">MUAC ratio</text><text x="526" y="331">Body scale</text><text x="526" y="407">Pose vector</text><path class="about-vector-line" d="M458 278L505 249M458 326L505 325M458 374L505 401"/><text class="metric metric-a" x="555" y="205">0.83</text><text class="metric metric-b" x="610" y="454">23 features</text></g>
+        <g class="about-stage about-stage-model" tabindex="0"><circle cx="790" cy="245" r="13"/><circle cx="790" cy="322" r="13"/><circle cx="790" cy="399" r="13"/><circle cx="875" cy="282" r="13"/><circle cx="875" cy="362" r="13"/><path d="M790 245L875 282M790 245L875 362M790 322L875 282M790 322L875 362M790 399L875 282M790 399L875 362"/><path class="about-monogram" d="M742 440L777 214L821 440M762 360H802M853 440L905 214L957 440"/><text x="768" y="486">AIMM inference</text></g>
+        <g class="about-stage about-stage-output" tabindex="0"><rect x="970" y="220" width="116" height="54" rx="10"/><rect x="970" y="300" width="116" height="54" rx="10"/><rect x="970" y="380" width="116" height="54" rx="10"/><text x="998" y="253">Wasting</text><text x="998" y="333">Stunting</text><text x="988" y="413">Underweight</text><path class="risk-line" d="M990 462H1068"/><path class="risk-line active" d="M990 462H1037"/></g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="about-principles" aria-label="AIMM principles">
+    <div class="principle"><span>01</span><strong>Smartphone-based visual anthropometry</strong></div>
+    <div class="principle"><span>02</span><strong>Pose-guided feature extraction</strong></div>
+    <div class="principle"><span>03</span><strong>Image-based nutritional assessment</strong></div>
+    <div class="principle"><span>04</span><strong>Designed for low-resource environments</strong></div>
+  </section>
+</main>
+<footer class="site-footer"><div class="footer-label">AIMM</div><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="project.html">Research</a><a href="updates.html">News</a><a href="publications.html">Publications</a><a href="dashboard.html">Dashboard</a></div><div class="footer-note">For inquiries: <a href="mailto:aimm@iheid.ch">aimm@iheid.ch</a></div></footer>
+</body>
+</html>
