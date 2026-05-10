@@ -29,7 +29,6 @@ body{
   text-rendering:optimizeLegibility;
 }
 
-/* remove ALL extra frames */
 .visual-card,
 .visual-card figure,
 .news-card,
@@ -46,7 +45,6 @@ body{
   position:relative!important;
 }
 
-/* remove ALL numbering systems */
 .section-card span,
 .news-card span,
 .section-number,
@@ -59,7 +57,6 @@ body{
   display:none!important;
 }
 
-/* raspberry hover */
 .section-card::after,
 .news-card::after{
   content:''!important;
@@ -93,11 +90,17 @@ body{
   bottom:22px!important;
 }
 
+/* NEWS SYSTEM */
 .news-card-combined strong{
-  top:28px!important;
+  position:relative!important;
+  top:auto!important;
+  left:auto!important;
   bottom:auto!important;
+  display:block!important;
+  color:#fff!important;
   font-size:18px!important;
-  letter-spacing:.14em!important;
+  letter-spacing:.16em!important;
+  margin-bottom:20px!important;
 }
 
 .news-combined-content{
@@ -107,40 +110,78 @@ body{
   display:flex!important;
   flex-direction:column!important;
   justify-content:flex-start!important;
-  padding:76px 26px 26px!important;
-  background:linear-gradient(180deg,rgba(0,0,0,.42),rgba(0,0,0,.72))!important;
+  padding:28px!important;
+  background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,.82))!important;
 }
 
-.news-combined-content ul{
-  list-style:none!important;
-  padding:0!important;
-  margin:0!important;
+.news-subtiles{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:14px!important;
+}
+
+.news-subtile{
+  position:relative!important;
   display:flex!important;
   flex-direction:column!important;
-  gap:18px!important;
+  justify-content:flex-start!important;
+  min-height:118px!important;
+  padding:18px 18px 16px!important;
+  background:rgba(255,255,255,.08)!important;
+  backdrop-filter:blur(14px)!important;
+  border:1px solid rgba(255,255,255,.14)!important;
+  text-decoration:none!important;
+  transition:all .18s ease!important;
 }
 
-.news-combined-content li{
-  color:#fff!important;
-  font-size:13px!important;
-  line-height:1.55!important;
-  letter-spacing:.04em!important;
-  padding-bottom:14px!important;
-  border-bottom:1px solid rgba(255,255,255,.14)!important;
-  position:relative!important;
-  padding-right:90px!important;
+.news-subtile:hover{
+  background:rgba(179,18,63,.38)!important;
+  border-color:rgba(255,255,255,.22)!important;
 }
 
-.news-combined-content li::after{
-  content:'Read more →'!important;
-  position:absolute!important;
-  right:0!important;
-  bottom:14px!important;
-  color:#fff!important;
+.news-date{
+  display:block!important;
+  color:rgba(255,255,255,.74)!important;
   font-size:10px!important;
-  letter-spacing:.14em!important;
+  letter-spacing:.22em!important;
   text-transform:uppercase!important;
-  opacity:.92!important;
+  margin-bottom:10px!important;
+}
+
+.news-subtile h4{
+  color:#fff!important;
+  font-size:16px!important;
+  letter-spacing:.06em!important;
+  line-height:1.2!important;
+  margin:0 0 14px!important;
+  font-weight:500!important;
+}
+
+.news-glass{
+  margin-top:auto!important;
+  opacity:0!important;
+  transform:translateY(6px)!important;
+  transition:all .18s ease!important;
+}
+
+.news-subtile:hover .news-glass{
+  opacity:1!important;
+  transform:translateY(0)!important;
+}
+
+.news-glass p{
+  color:#fff!important;
+  font-size:12px!important;
+  line-height:1.5!important;
+  margin:0 0 12px!important;
+}
+
+.news-glass em{
+  color:#fff!important;
+  font-style:normal!important;
+  font-size:10px!important;
+  letter-spacing:.16em!important;
+  text-transform:uppercase!important;
 }
 
 @media (min-width:1201px){
@@ -149,14 +190,15 @@ body{
     overflow:hidden!important;
   }
 
+  /* wider news column */
   .landing-composition{
     width:min(100%,1800px)!important;
     height:100vh!important;
     margin-inline:auto!important;
     display:grid!important;
-    grid-template-columns:260px minmax(0,1fr)!important;
+    grid-template-columns:340px minmax(0,1fr)!important;
     grid-template-rows:150px minmax(0,1fr)!important;
-    column-gap:20px!important;
+    column-gap:24px!important;
     row-gap:18px!important;
     padding:20px 28px 22px!important;
     box-sizing:border-box!important;
@@ -217,11 +259,6 @@ body{
   }
 
   .section-card:nth-child(4){
-    grid-column:1!important;
-    grid-row:1!important;
-  }
-
-  .section-card:nth-child(5){
     grid-column:3!important;
     grid-row:2!important;
   }
