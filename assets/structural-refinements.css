@@ -1,45 +1,62 @@
-/* AIMM editorial refinement system */
+/* AIMM ultra-clean editorial system */
 :root{
   --aimm-primary:#B3123F;
-  --aimm-accent:#E11D48;
-  --aimm-dark:#6A0F2B;
-  --aimm-silver:#D8DDE2;
-  --aimm-silver-soft:#EEF1F2;
-  --aimm-silver-mid:#AEB5BA;
   --aimm-ink:#0F1113;
-  --aimm-line:rgba(15,17,19,.10);
-  --aimm-line-soft:rgba(174,181,186,.22);
-  --aimm-title:#ECEEEF;
+}
+
+/* COMPLETE BACKGROUND RESET */
+*,
+*::before,
+*::after{
+  background-image:none!important;
+  box-shadow:none!important;
+}
+
+html,
+body,
+main,
+.landing-page,
+.landing-composition,
+.center-logo-stage,
+.landing-news-panel,
+.landing-sections-panel,
+.compact-section-grid,
+.site-footer{
+  background:#fff!important;
+  background-image:none!important;
+}
+
+/* REMOVE ALL REMAINING GENERATED VISUAL LAYERS */
+.center-logo-stage::before,
+.center-logo-stage::after,
+.landing-sections-panel::before,
+.landing-sections-panel::after,
+.site-footer::before,
+.site-footer::after,
+.visual-card::before,
+.visual-card::after,
+.visual-card figure::before,
+.visual-card figure::after{
+  display:none!important;
+  content:none!important;
+  opacity:0!important;
 }
 
 body{
-  background:#fff!important;
   color:var(--aimm-ink)!important;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
 }
 
-.landing-page,
-body,
-main,
-.landing-composition{
-  background:#fff!important;
-  background-image:none!important;
+.visual-card,
+.visual-card figure,
+.news-card,
+.section-card{
+  border:0!important;
+  background:transparent!important;
+  overflow:hidden!important;
 }
 
-.center-logo-stage::before,
-.center-logo-stage::after,
-.landing-sections-panel::before,
-.landing-sections-panel::after,
-.visual-card figure::before,
-.visual-card figure::after,
-.site-footer::before,
-.site-footer::after{
-  display:none!important;
-  content:none!important;
-}
-
-/* FOOTER REFINEMENT */
 .footer-av,
 .footer-partners img.footer-av{
   display:block!important;
@@ -51,10 +68,8 @@ main,
     margin-top:128px!important;
     padding:64px 0 36px!important;
     border-top:1px solid rgba(15,17,19,.08)!important;
-    background:#fff!important;
   }
 
-  /* larger logo strip with more spacing */
   .footer-partners{
     display:flex!important;
     align-items:center!important;
@@ -62,7 +77,6 @@ main,
     gap:clamp(68px,7vw,140px)!important;
     padding-bottom:58px!important;
     flex-wrap:wrap!important;
-    opacity:1!important;
   }
 
   .footer-partners img{
@@ -73,34 +87,27 @@ main,
     opacity:1!important;
   }
 
-  /* AV banner instead of watermark */
   .footer-av,
   .footer-partners img.footer-av{
     max-height:52px!important;
-    filter:grayscale(100%) brightness(.04)!important;
-    opacity:1!important;
   }
 
   .footer-identity{
     display:flex!important;
     flex-direction:column!important;
     align-items:center!important;
-    justify-content:center!important;
     gap:18px!important;
     padding-bottom:34px!important;
   }
 
-  /* black inquiry text */
   .footer-note{
     font-size:12px!important;
     letter-spacing:.18em!important;
     text-transform:uppercase!important;
     color:#0F1113!important;
-    opacity:1!important;
     font-weight:500!important;
   }
 
-  /* raspberry email only */
   .footer-note a{
     color:#B3123F!important;
     text-decoration:none!important;
@@ -129,7 +136,6 @@ main,
     margin-top:92px!important;
     padding:54px 0 32px!important;
     border-top:1px solid rgba(15,17,19,.08)!important;
-    background:#fff!important;
   }
 
   .footer-partners{
@@ -139,14 +145,12 @@ main,
     justify-items:center!important;
     align-items:center!important;
     padding-bottom:42px!important;
-    opacity:1!important;
   }
 
   .footer-partners img{
     max-height:34px!important;
     width:auto!important;
     filter:grayscale(100%) brightness(.04)!important;
-    opacity:1!important;
   }
 
   .footer-av,
@@ -167,7 +171,6 @@ main,
     letter-spacing:.16em!important;
     text-transform:uppercase!important;
     color:#0F1113!important;
-    opacity:1!important;
   }
 
   .footer-note a{
