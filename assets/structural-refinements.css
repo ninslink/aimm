@@ -1,10 +1,9 @@
-/* AIMM initial build cleanup */
+/* AIMM refined landing system */
 :root{
   --aimm-primary:#B3123F;
   --aimm-ink:#0F1113;
 }
 
-/* clean white system */
 html,
 body,
 main,
@@ -19,7 +18,6 @@ main,
   background-image:none!important;
 }
 
-/* remove all generated overlays */
 *,
 *::before,
 *::after{
@@ -54,9 +52,10 @@ body{
   border:0!important;
   background:transparent!important;
   overflow:hidden!important;
+  position:relative!important;
 }
 
-/* preserve original logo colors */
+/* keep logo colors */
 .top-monogram img,
 .section-card-about img,
 .footer-av,
@@ -65,43 +64,79 @@ body{
   opacity:1!important;
 }
 
-/* remove numbering */
+/* remove ALL numbers */
 .section-card span,
 .section-number,
 .tile-number,
-.card-number{
+.card-number,
+.news-card span{
   display:none!important;
+}
+
+/* remove sections heading */
+.landing-sections-panel .rail-title{
+  display:none!important;
+}
+
+/* hover effect */
+.section-card::after{
+  content:''!important;
+  position:absolute!important;
+  inset:0!important;
+  background:#B3123F!important;
+  opacity:0!important;
+  transition:opacity .2s ease!important;
+  z-index:2!important;
+  mix-blend-mode:multiply!important;
+}
+
+.section-card:hover::after{
+  opacity:.88!important;
+}
+
+.section-card strong{
+  z-index:10!important;
 }
 
 @media (min-width:1201px){
 
+  .landing-page{
+    min-height:100vh!important;
+    overflow:hidden!important;
+    padding-bottom:0!important;
+  }
+
   .landing-composition{
-    width:min(100%,1720px)!important;
+    width:min(100%,1760px)!important;
+    height:100vh!important;
     margin-inline:auto!important;
     display:grid!important;
-    grid-template-columns:minmax(150px,11vw) minmax(0,1fr)!important;
-    grid-template-rows:minmax(118px,15vh) minmax(0,1fr)!important;
-    column-gap:120px!important;
-    row-gap:24px!important;
+    grid-template-columns:190px minmax(0,1fr)!important;
+    grid-template-rows:180px minmax(0,1fr)!important;
+    column-gap:110px!important;
+    row-gap:18px!important;
+    padding:24px 40px 28px!important;
+    box-sizing:border-box!important;
   }
 
   .center-logo-stage img{
     width:min(60vw,1180px)!important;
-    max-height:220px!important;
+    max-height:180px!important;
     object-fit:contain!important;
   }
 
-  /* section structure */
+  /* tiles fill page without scrolling */
   .compact-section-grid{
     display:grid!important;
     grid-template-columns:repeat(12,minmax(0,1fr))!important;
-    grid-template-rows:repeat(12,minmax(0,1fr))!important;
-    gap:28px!important;
+    grid-template-rows:repeat(10,minmax(0,1fr))!important;
+    gap:22px!important;
+    height:calc(100vh - 260px)!important;
   }
 
   .section-card-about{
     grid-column:4 / span 5!important;
-    grid-row:3 / span 6!important;
+    grid-row:3 / span 5!important;
     z-index:2!important;
   }
 
@@ -112,23 +147,35 @@ body{
 
   .section-card:nth-child(3){
     grid-column:9 / span 4!important;
-    grid-row:1 / span 5!important;
+    grid-row:1 / span 4!important;
   }
 
   .section-card:nth-child(4){
     grid-column:1 / span 4!important;
-    grid-row:9 / span 3!important;
+    grid-row:6 / span 4!important;
   }
 
   .section-card:nth-child(5){
     grid-column:9 / span 4!important;
-    grid-row:8 / span 4!important;
+    grid-row:6 / span 4!important;
+  }
+
+  .section-card-about figure,
+  .section-card figure{
+    width:100%!important;
+    height:100%!important;
+  }
+
+  .section-card-about img,
+  .section-card img{
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
   }
 
   .section-card-about img{
-    width:100%!important;
-    height:100%!important;
     object-fit:contain!important;
+    padding:6%!important;
   }
 
   .section-card strong,
@@ -139,48 +186,59 @@ body{
     color:#fff!important;
     text-transform:uppercase!important;
     z-index:10!important;
-  }
-
-  .section-card strong{
     font-size:15px!important;
     letter-spacing:.16em!important;
   }
 
-  /* footer centered vertically */
+  /* footer visible black/white */
   .site-footer{
-    margin-top:120px!important;
-    padding:56px 0 34px!important;
+    padding:38px 40px!important;
     border-top:1px solid rgba(15,17,19,.08)!important;
+    background:#fff!important;
+  }
+
+  .footer-links{
+    display:none!important;
   }
 
   .footer-partners{
     display:flex!important;
     align-items:center!important;
-    justify-content:center!important;
-    gap:88px!important;
+    justify-content:flex-end!important;
+    gap:72px!important;
     flex-wrap:wrap!important;
-    min-height:120px!important;
+    min-height:90px!important;
   }
 
   .footer-partners img{
-    max-height:42px!important;
+    max-height:40px!important;
     width:auto!important;
     object-fit:contain!important;
+    filter:grayscale(100%) brightness(0)!important;
+    opacity:1!important;
+  }
+
+  .footer-av{
+    max-height:54px!important;
+    width:auto!important;
+    object-fit:contain!important;
+    filter:grayscale(100%) brightness(0)!important;
   }
 
   .footer-identity{
     display:flex!important;
     flex-direction:column!important;
     justify-content:center!important;
+    align-items:flex-start!important;
     gap:16px!important;
-    min-height:120px!important;
+    min-height:90px!important;
   }
 
   .footer-note{
     font-size:12px!important;
     letter-spacing:.16em!important;
     text-transform:uppercase!important;
-    color:#0F1113!important;
+    color:#000!important;
   }
 
   .footer-note a{
@@ -192,10 +250,14 @@ body{
 
 @media (max-width:640px){
 
+  .landing-sections-panel .rail-title{
+    display:none!important;
+  }
+
   .compact-section-grid{
     display:grid!important;
     grid-template-columns:repeat(6,minmax(0,1fr))!important;
-    gap:18px!important;
+    gap:16px!important;
   }
 
   .section-card-about{
@@ -207,14 +269,24 @@ body{
   .section-card:nth-child(4){grid-column:1 / span 3!important}
   .section-card:nth-child(5){grid-column:4 / span 3!important}
 
-  .section-card-about img{
+  .section-card-about img,
+  .section-card img{
     width:100%!important;
     height:100%!important;
+    object-fit:cover!important;
+  }
+
+  .section-card-about img{
     object-fit:contain!important;
+    padding:4%!important;
+  }
+
+  .footer-links{
+    display:none!important;
   }
 
   .footer-partners img,
   .footer-av{
-    filter:none!important;
+    filter:grayscale(100%) brightness(0)!important;
   }
 }
