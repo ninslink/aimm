@@ -1,120 +1,336 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#ffffff">
-  <title>AIMM</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="assets/logos/av-banner@3x.png">
-  <link rel="stylesheet" href="assets/styles.css">
-  <link rel="stylesheet" href="assets/structural-refinements.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIMM</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Montserrat,sans-serif;background:#fff;color:#0F1113;overflow-x:hidden}
+
+main{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:34px;
+}
+
+.hero{
+position:absolute;
+top:34px;
+left:50%;
+transform:translateX(-50%);
+z-index:20;
+}
+
+.hero img{
+width:min(46vw,860px);
+max-height:112px;
+object-fit:contain;
+}
+
+/* COLLAGE */
+.collage{
+width:min(1180px,90vw);
+height:min(760px,78vh);
+margin-top:92px;
+
+display:grid;
+grid-template-columns:1.04fr 1.22fr 1fr;
+grid-template-rows:1fr 1fr;
+gap:28px;
+}
+
+.tile{
+position:relative;
+overflow:hidden;
+background:#f4f4f4;
+}
+
+.tile img{
+width:100%;
+height:100%;
+object-fit:cover;
+filter:grayscale(100%) contrast(1.02);
+}
+
+.tile::after{
+content:'';
+position:absolute;
+inset:0;
+background:#B3123F;
+opacity:0;
+transition:.18s;
+mix-blend-mode:multiply;
+}
+
+.tile:hover::after{opacity:.82}
+
+.tile strong{
+position:absolute;
+left:22px;
+bottom:22px;
+color:#fff;
+font-size:18px;
+font-weight:500;
+letter-spacing:.18em;
+text-transform:uppercase;
+z-index:10;
+}
+
+/* NEWS */
+.news{
+grid-column:1;
+grid-row:1/span 2;
+}
+
+.news-overlay{
+position:absolute;
+inset:0;
+padding:28px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+background:linear-gradient(180deg,rgba(0,0,0,.16),rgba(0,0,0,.84));
+z-index:10;
+}
+
+.news-overlay > strong{
+color:#fff;
+font-size:18px;
+font-weight:500;
+letter-spacing:.18em;
+text-transform:uppercase;
+}
+
+.news-list{
+flex:1;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+gap:14px;
+margin-top:18px;
+}
+
+.news-item{
+padding:18px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(8px);
+}
+
+.news-date{
+display:block;
+margin-bottom:12px;
+color:rgba(255,255,255,.62);
+font-size:10px;
+letter-spacing:.24em;
+text-transform:uppercase;
+}
+
+.news-item h4{
+margin:0;
+color:#fff;
+font-size:11px;
+font-weight:500;
+letter-spacing:.18em;
+line-height:1.45;
+text-transform:uppercase;
+}
+
+.news-copy{
+margin-top:12px;
+color:#fff;
+font-size:12px;
+line-height:1.5;
+opacity:.82;
+}
+
+/* ABOUT */
+.about{
+grid-column:2;
+grid-row:1/span 2;
+}
+
+.about img{
+object-fit:contain;
+padding:7%;
+background:#fff;
+}
+
+/* RESEARCH */
+.research{
+grid-column:3;
+grid-row:1;
+}
+
+/* DASHBOARD */
+.dashboard{
+grid-column:3;
+grid-row:2;
+}
+
+/* FLOATING PUBLICATIONS */
+.publications{
+grid-column:2;
+grid-row:2;
+width:42%;
+height:38%;
+align-self:end;
+justify-self:start;
+margin:0 0 28px 28px;
+z-index:20;
+}
+
+/* FOOTER */
+footer{
+width:100%;
+padding:20px 42px;
+border-top:1px solid rgba(15,17,19,.08);
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:40px;
+background:#fff;
+}
+
+.footer-left{
+display:flex;
+align-items:center;
+gap:22px;
+flex-shrink:0;
+}
+
+.footer-left img{
+height:42px;
+width:auto;
+filter:grayscale(100%) brightness(0);
+}
+
+.footer-left div{
+font-size:11px;
+letter-spacing:.16em;
+text-transform:uppercase;
+white-space:nowrap;
+}
+
+.footer-left a{
+color:#B3123F;
+text-decoration:none;
+font-weight:600;
+}
+
+.footer-right{
+display:flex;
+align-items:center;
+justify-content:flex-end;
+gap:72px;
+flex:1;
+margin-left:auto;
+}
+
+.footer-right img{
+height:38px;
+width:auto;
+filter:grayscale(100%) brightness(.44) contrast(.92);
+opacity:.9;
+}
+
+@media(max-width:1100px){
+.hero{
+position:relative;
+left:auto;
+top:auto;
+transform:none;
+margin-bottom:28px;
+}
+
+main{
+padding:20px;
+}
+
+.collage{
+display:flex;
+flex-direction:column;
+height:auto;
+width:100%;
+margin-top:0;
+}
+
+.tile,
+.about,
+.publications{
+min-height:260px;
+width:100%;
+height:auto;
+margin:0;
+}
+
+.about{
+min-height:420px;
+}
+
+footer{
+flex-direction:column;
+align-items:flex-start;
+gap:28px;
+}
+
+.footer-right{
+justify-content:flex-start;
+flex-wrap:wrap;
+gap:32px;
+margin-left:0;
+}
+}
+</style>
 </head>
 <body>
 
-<div style="position:fixed;top:26px;left:28px;z-index:1000;">
-  <button onclick="document.getElementById('av-menu').classList.toggle('open')" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-    <img src="assets/logos/av-mono_bw@3x.png" alt="AV Menu" style="width:54px;height:auto;object-fit:contain;display:block;">
-  </button>
-
-  <div id="av-menu" style="position:absolute;top:74px;left:0;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border:1px solid rgba(15,17,19,.08);padding:18px 20px;display:none;min-width:180px;">
-    <nav style="display:flex;flex-direction:column;gap:14px;">
-      <a href="about.html" style="text-decoration:none;color:#0F1113;font-size:12px;letter-spacing:.16em;text-transform:uppercase;">About</a>
-      <a href="project.html" style="text-decoration:none;color:#0F1113;font-size:12px;letter-spacing:.16em;text-transform:uppercase;">Research</a>
-      <a href="publications.html" style="text-decoration:none;color:#0F1113;font-size:12px;letter-spacing:.16em;text-transform:uppercase;">Publications</a>
-      <a href="updates.html" style="text-decoration:none;color:#0F1113;font-size:12px;letter-spacing:.16em;text-transform:uppercase;">News</a>
-      <a href="dashboard.html" style="text-decoration:none;color:#0F1113;font-size:12px;letter-spacing:.16em;text-transform:uppercase;">Dashboard</a>
-    </nav>
-  </div>
+<div class="hero">
+<img src="assets/logos/av-banner@3x.png" alt="AnthroViz">
 </div>
 
-<script>
-  document.addEventListener('click', function(e) {
-    const menu = document.getElementById('av-menu');
-    const button = e.target.closest('button');
-    if (!e.target.closest('#av-menu') && !button) {
-      menu.style.display = 'none';
-      menu.classList.remove('open');
-    } else if (button) {
-      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    }
-  });
-</script>
+<main>
+<section class="collage">
 
-<main class="landing-page landing-system-page compact-landing">
-  <section class="landing-composition" aria-label="AnthroViz AI landing page">
+<div class="tile news">
+<img src="assets/news/image_01.jpg" alt="news">
+<div class="news-overlay">
+<strong>NEWS</strong>
+<div class="news-list">
+<div class="news-item"><span class="news-date">08.2026</span><h4>TAG MEETING</h4><div class="news-copy">Technical Advisory Group meeting at FLAME University.</div></div>
+<div class="news-item"><span class="news-date">04.2026</span><h4>NASHIK PILOT</h4><div class="news-copy">First AIMM pilot deployment completed in Maharashtra.</div></div>
+<div class="news-item"><span class="news-date">03.2026</span><h4>INTERVIEW</h4><div class="news-copy">Discussion on AI-based anthropometry systems.</div></div>
+<div class="news-item"><span class="news-date">02.2026</span><h4>PUBLICATION</h4><div class="news-copy">Frontiers article on smartphone malnutrition screening.</div></div>
+</div>
+</div>
+</div>
 
-    <a class="center-logo-stage" href="about.html" aria-label="About AIMM">
-      <img src="assets/logos/av-banner@3x.png" alt="AnthroViz AI" loading="eager" fetchpriority="high" decoding="async">
-    </a>
+<a class="tile about" href="about.html"><img src="assets/logos/hero-white.png"><strong>ABOUT</strong></a>
+<a class="tile research" href="project.html"><img src="assets/news/image_05.jpg"><strong>RESEARCH</strong></a>
+<a class="tile dashboard" href="dashboard.html"><img src="assets/news/image_08.jpg"><strong>DASHBOARD</strong></a>
+<a class="tile publications" href="publications.html"><img src="assets/news/image_06.jpg"><strong>PUBLICATIONS</strong></a>
 
-    <aside class="landing-news-panel" aria-label="News and updates">
-      <div class="visual-card news-card news-card-combined">
-        <figure><img src="assets/news/image_01.jpg" alt="AIMM News" loading="lazy" decoding="async"></figure>
-        <div class="news-combined-content">
-          <strong>News</strong>
-          <div class="news-subtiles">
-            <a class="news-subtile" href="updates.html#tag-flame"><span class="news-date">08.2026</span><h4>TAG Meeting</h4><div class="news-glass"><p>Technical Advisory Group meeting at FLAME University.</p><em>Read more →</em></div></a>
-            <a class="news-subtile" href="updates.html#pilot-nashik"><span class="news-date">04.2026</span><h4>Nashik Pilot</h4><div class="news-glass"><p>First AIMM pilot deployment completed in Maharashtra.</p><em>Read more →</em></div></a>
-            <a class="news-subtile" href="updates.html#interview-cai"><span class="news-date">03.2026</span><h4>Interview</h4><div class="news-glass"><p>Discussion on AI-based anthropometry systems.</p><em>Read more →</em></div></a>
-            <a class="news-subtile" href="updates.html#frontiers-publication"><span class="news-date">02.2026</span><h4>Publication</h4><div class="news-glass"><p>Frontiers article on smartphone malnutrition screening.</p><em>Read more →</em></div></a>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <section class="landing-sections-panel" aria-label="Core AIMM sections">
-      <div class="section-grid compact-section-grid">
-        <a class="visual-card section-card section-card-about" href="about.html"><figure><img src="assets/logos/hero-white.png" alt="About AIMM" loading="lazy" decoding="async"></figure><strong>About</strong></a>
-        <a class="visual-card section-card" href="project.html"><figure><img src="assets/news/image_05.jpg" alt="Research" loading="lazy" decoding="async"></figure><strong>Research</strong></a>
-        <a class="visual-card section-card" href="publications.html"><figure><img src="assets/news/image_06.jpg" alt="Publications" loading="lazy" decoding="async"></figure><strong>Publications</strong></a>
-        <a class="visual-card section-card" href="dashboard.html"><figure><img src="assets/news/image_08.jpg" alt="Dashboard" loading="lazy" decoding="async"></figure><strong>Dashboard</strong></a>
-      </div>
-    </section>
-  </section>
+</section>
 </main>
 
-<footer style="width:100%;background:#fff;border-top:1px solid rgba(15,17,19,.08);padding:42px 54px;box-sizing:border-box;overflow:hidden;">
-  <div style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:48px;">
-    <div style="display:flex;align-items:center;justify-content:flex-start;gap:26px;flex-shrink:0;">
-      <img src="assets/logos/av-banner@3x.png" alt="AnthroViz AI" style="height:58px;width:auto;object-fit:contain;filter:grayscale(100%) brightness(0);display:block;">
-      <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#000;white-space:nowrap;">For inquiries <a href="mailto:aimm@iheid.ch" style="color:#B3123F;text-decoration:none;font-weight:600;">aimm@iheid.ch</a></div>
-    </div>
+<footer>
+<div class="footer-left">
+<img src="assets/logos/av-banner@3x.png" alt="AnthroViz">
+<div>For inquiries <a href="mailto:aimm@iheid.ch">aimm@iheid.ch</a></div>
+</div>
 
-    <div style="display:flex;align-items:center;justify-content:flex-end;gap:92px;flex:1 1 auto;margin-left:auto;overflow:hidden;">
-      <img src="assets/logos/geneva.png" alt="Geneva Graduate Institute" style="height:48px;width:auto;display:block;object-fit:contain;filter:grayscale(100%) brightness(.18) contrast(1.05);opacity:.92;mix-blend-mode:multiply;">
-      <img src="assets/logos/snsf.png" alt="Swiss National Science Foundation" style="height:48px;width:auto;display:block;object-fit:contain;filter:grayscale(100%) brightness(.18) contrast(1.05);opacity:.92;mix-blend-mode:multiply;">
-      <img src="assets/logos/bridge.png" alt="BRIDGE Programme" style="height:48px;width:auto;display:block;object-fit:contain;filter:grayscale(100%) brightness(.18) contrast(1.05);opacity:.92;mix-blend-mode:multiply;">
-      <img src="assets/logos/flame.png" alt="FLAME University" style="height:48px;width:auto;display:block;object-fit:contain;filter:grayscale(100%) brightness(.18) contrast(1.05);opacity:.92;mix-blend-mode:multiply;">
-    </div>
-  </div>
-
-  <style>
-    @media (max-width:900px){
-      footer > div{
-        flex-direction:column !important;
-        align-items:flex-start !important;
-        gap:34px !important;
-      }
-      footer > div > div:last-child{
-        justify-content:flex-start !important;
-        flex-wrap:wrap !important;
-        gap:34px !important;
-        margin-left:0 !important;
-      }
-      footer img[alt="AnthroViz AI"]{
-        height:44px !important;
-      }
-      footer img[alt="Geneva Graduate Institute"],
-      footer img[alt="Swiss National Science Foundation"],
-      footer img[alt="BRIDGE Programme"],
-      footer img[alt="FLAME University"]{
-        height:34px !important;
-      }
-    }
-  </style>
+<div class="footer-right">
+<img src="assets/logos/geneva.png">
+<img src="assets/logos/snsf.png">
+<img src="assets/logos/bridge.png">
+<img src="assets/logos/flame.png">
+</div>
 </footer>
+
 </body>
 </html>
