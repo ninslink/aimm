@@ -1,1 +1,564 @@
-<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>AIMM</title><link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap' rel='stylesheet'><style>body{margin:0;font-family:Montserrat,sans-serif;background:#fff}body:before{content:'';position:fixed;inset:0;background:url("assets/logos/av-o_bw@3x.png") center/58vh no-repeat;opacity:.018}.hero img{width:min(100vw,1320px);transition:.22s}.hero:hover img{filter:brightness(0) saturate(100%) invert(14%) sepia(94%) saturate(5500%) hue-rotate(330deg) brightness(98%) contrast(108%)}.footer-right img,.footer-right img.irps-logo{height:34px;filter:grayscale(100%) brightness(.42) contrast(1.05)}body{display:flex;justify-content:center;align-items:center;height:100vh}a{color:#B3123F}</style></head><body><div><div class='hero'><img src='assets/images/header_banner_bw_half.png'></div><p>AIMM homepage restored. Replace with full code if needed.</p></div></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIMM</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Montserrat,sans-serif;
+background:#fff;
+color:#0F1113;
+overflow:hidden;
+position:relative;
+}
+
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:
+url("assets/logos/av-o_bw@3x.png")
+center center / 58vh no-repeat;
+opacity:.018;
+pointer-events:none;
+z-index:-1;
+}
+
+.page-wrap{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px 42px 110px;
+}
+
+.menu-trigger{
+position:fixed;
+top:34px;
+left:72px;
+z-index:3000;
+cursor:pointer;
+}
+
+.menu-trigger img{
+width:74px;
+filter:grayscale(100%) brightness(0);
+}
+
+.dropdown{
+position:fixed;
+top:116px;
+left:72px;
+background:rgba(255,255,255,.97);
+padding:22px;
+display:none;
+flex-direction:column;
+gap:16px;
+border-radius:2px;
+box-shadow:
+0 20px 60px rgba(0,0,0,.05);
+z-index:3000;
+}
+
+.dropdown.open{
+display:flex;
+}
+
+.dropdown a{
+font-size:11px;
+letter-spacing:.18em;
+text-transform:uppercase;
+color:#0F1113;
+text-decoration:none;
+}
+
+.layout-group{
+width:min(76vw,1440px);
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.hero{
+height:210px;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.hero img{
+width:min(100vw,1320px);
+transition:.22s;
+}
+
+.hero:hover img{
+filter:
+brightness(0)
+saturate(100%)
+invert(14%)
+sepia(94%)
+saturate(5500%)
+hue-rotate(330deg)
+brightness(98%)
+contrast(108%);
+}
+
+.collage{
+
+display:grid;
+
+grid-template-columns:
+.92fr 1fr 1fr;
+
+grid-template-rows:
+1fr 1.28fr .52fr;
+
+gap:28px;
+
+height:min(730px,72vh);
+
+}
+
+.tile{
+position:relative;
+overflow:hidden;
+background:#f4f4f4;
+}
+
+.tile img{
+width:100%;
+height:100%;
+object-fit:cover;
+
+filter:
+grayscale(100%)
+contrast(1.02)
+brightness(.92);
+
+transition:filter .18s;
+}
+
+.tile:hover img{
+
+filter:
+
+grayscale(100%)
+contrast(1.12)
+brightness(.65)
+invert(1)
+hue-rotate(305deg);
+
+}
+
+.tile::after{
+content:'';
+position:absolute;
+inset:0;
+background:#B3123F;
+opacity:0;
+transition:.18s;
+mix-blend-mode:multiply;
+}
+
+.tile:hover::after{
+opacity:.88;
+}
+
+.tile strong{
+position:absolute;
+left:24px;
+top:22px;
+font-size:24px;
+letter-spacing:.14em;
+color:white;
+z-index:10;
+}
+
+.news{
+grid-column:1;
+grid-row:1/span 2;
+}
+
+.about{
+grid-column:2/span 2;
+grid-row:1;
+min-height:220px;
+}
+
+.research{
+grid-column:2/span 2;
+grid-row:2;
+min-height:430px;
+}
+
+.publications{
+grid-column:2;
+grid-row:3;
+min-height:180px;
+}
+
+.dashboard{
+grid-column:3;
+grid-row:3;
+min-height:180px;
+}
+
+/* NEWS */
+
+.news-overlay{
+position:absolute;
+inset:0;
+padding:24px;
+display:flex;
+flex-direction:column;
+
+background:
+linear-gradient(
+180deg,
+rgba(0,0,0,.1),
+rgba(0,0,0,.92)
+);
+
+}
+
+.news-overlay>strong{
+font-size:24px;
+color:white;
+margin-bottom:30px;
+letter-spacing:.14em;
+}
+
+.news-list{
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+.news-item{
+
+padding:18px;
+min-height:108px;
+
+background:
+rgba(255,255,255,.03);
+
+border:
+1px solid rgba(255,255,255,.05);
+
+}
+
+.news-item:hover{
+background:
+rgba(179,18,63,.22);
+}
+
+.news-date{
+font-size:9px;
+letter-spacing:.24em;
+color:rgba(255,255,255,.55);
+}
+
+.news-item h4{
+font-size:15px;
+line-height:1.4;
+letter-spacing:.12em;
+margin:10px 0;
+color:white;
+}
+
+.news-copy{
+font-size:12px;
+line-height:1.65;
+color:white;
+opacity:.82;
+}
+
+.news-link{
+font-size:10px;
+letter-spacing:.18em;
+color:white;
+text-decoration:none;
+}
+
+/* FOOTER */
+
+footer{
+
+position:fixed;
+
+bottom:0;
+left:50%;
+
+transform:
+translateX(-50%);
+
+width:min(76vw,1440px);
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:18px 0;
+
+border-top:
+1px solid rgba(0,0,0,.05);
+
+background:white;
+
+}
+
+.footer-left{
+display:flex;
+gap:18px;
+align-items:center;
+}
+
+.footer-left img{
+height:38px;
+}
+
+.footer-right{
+display:flex;
+gap:34px;
+align-items:center;
+}
+
+.footer-right img,
+.footer-right img.irps-logo{
+
+height:34px;
+
+width:auto;
+
+object-fit:contain;
+
+filter:
+
+grayscale(100%)
+brightness(.42)
+contrast(1.05);
+
+}
+
+.footer-left div{
+font-size:10px;
+letter-spacing:.16em;
+text-transform:uppercase;
+}
+
+footer a{
+color:#0F1113;
+text-decoration:none;
+}
+
+/* MOBILE */
+
+@media(max-width:1100px){
+
+body{
+overflow:auto;
+}
+
+.page-wrap{
+padding:26px 20px 120px;
+display:block;
+}
+
+.layout-group{
+width:88vw;
+}
+
+.collage{
+display:flex;
+flex-direction:column;
+height:auto;
+gap:18px;
+}
+
+.tile{
+min-height:240px;
+}
+
+footer{
+
+position:relative;
+
+transform:none;
+left:auto;
+
+width:88vw;
+
+flex-direction:column;
+align-items:flex-start;
+
+gap:24px;
+
+}
+
+.footer-right{
+flex-wrap:wrap;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="menu-trigger"
+onclick="
+document
+.getElementById('dropdown')
+.classList.toggle('open')">
+
+<img
+src="assets/logos/av-mono_bw@3x.png">
+
+</div>
+
+<nav
+id="dropdown"
+class="dropdown">
+
+<a href="about.html">About</a>
+<a href="project.html">Research</a>
+<a href="publications.html">Publications</a>
+<a href="updates.html">News</a>
+<a href="dashboard.html">Dashboard</a>
+
+</nav>
+
+<div class="page-wrap">
+
+<div class="layout-group">
+
+<a class="hero" href="about.html">
+
+<img
+src="assets/images/header_banner_bw_half.png">
+
+</a>
+
+<section class="collage">
+
+<div class="tile news">
+
+<img src="assets/news/image_01.jpg">
+
+<div class="news-overlay">
+
+<strong>NEWS</strong>
+
+<div class="news-list">
+
+<div class="news-item">
+<span class="news-date">08.2026</span>
+<h4>TAG MEETING</h4>
+<div class="news-copy">
+Technical Advisory Group meeting.
+</div>
+</div>
+
+<div class="news-item">
+<span class="news-date">04.2026</span>
+<h4>NASHIK PILOT</h4>
+<div class="news-copy">
+Pilot deployment completed.
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<a class="tile about" href="about.html">
+<img src="assets/images/landing_refined_02.jpg">
+<strong>ABOUT</strong>
+</a>
+
+<a class="tile research" href="project.html">
+<img src="assets/images/landing_refined_01.jpg">
+<strong>RESEARCH</strong>
+</a>
+
+<a class="tile publications" href="publications.html">
+<img src="assets/images/landing_refined_05.jpg">
+<strong>PUBLICATIONS</strong>
+</a>
+
+<a class="tile dashboard" href="dashboard.html">
+<img src="assets/images/landing_refined_03.jpg">
+<strong>DASHBOARD</strong>
+</a>
+
+</section>
+
+</div>
+</div>
+
+<footer>
+
+<div class="footer-left">
+
+<img src="assets/logos/av-mono_bw@3x.png">
+
+<div>
+For inquiries
+<a href="mailto:aimm@iheid.ch">
+aimm@iheid.ch
+</a>
+</div>
+
+</div>
+
+<div class="footer-right">
+
+<img class="irps-logo"
+src="assets/logos/originals/IMG_5640.PNG">
+
+<img src="assets/logos/snsf.png">
+<img src="assets/logos/bridge.png">
+<img src="assets/logos/flame.png">
+
+</div>
+
+</footer>
+
+<script>
+
+document.addEventListener(
+'click',
+
+function(e){
+
+const menu=
+document.getElementById(
+'dropdown'
+);
+
+if(
+!e.target.closest(
+'.menu-trigger,.dropdown'
+)
+
+){
+menu.classList.remove(
+'open'
+)
+}
+
+})
+
+</script>
+
+</body>
+</html>
